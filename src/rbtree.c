@@ -5,6 +5,7 @@
 static void rbtree_fixup(rbtree *t, node_t *z);
 static void right_rotate(rbtree *t, node_t *z);
 static void left_rotate(rbtree *t, node_t *z);
+static void reclaim_nodes(rbtree *t, node_t *node);
 
 rbtree *new_rbtree(void)
 {
@@ -15,7 +16,7 @@ rbtree *new_rbtree(void)
   node_t *nil = (node_t *)calloc(1, sizeof(node_t));
   if (!nil)
   {
-    free(p); // 이미 할당된 메모리 해제
+    free(p);
     return NULL;
   }
 
@@ -29,7 +30,11 @@ rbtree *new_rbtree(void)
 
 void delete_rbtree(rbtree *t)
 {
-  // TODO: reclaim the tree nodes's memory
+  if (!t)
+    return;
+
+  reclaim_nodes(t, t->root);
+  free(t->nil);
   free(t);
 }
 
@@ -190,4 +195,15 @@ void right_rotate(rbtree *t, node_t *y)
 
   x->right = y;
   y->parent = x;
+}
+
+void reclaim_nodes(rbtree *t, node_t *node)
+{
+  if (node == t->nil)
+    return;
+
+  reclaim_nodes(t, node->left);
+  reclaim_nodes(t, node->right);
+
+  free(node);
 }
