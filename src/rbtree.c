@@ -352,7 +352,7 @@ void delete_fixup(rbtree *t, node_t *x)
   x->color = RBTREE_BLACK;
 }
 
-node_t *tree_minimum(rbtree *t, node_t *node);
+node_t *tree_minimum(rbtree *t, node_t *node)
 {
   while (node->left != t->nil)
     node = node->left;
