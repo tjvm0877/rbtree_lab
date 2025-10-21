@@ -18,7 +18,8 @@
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
-            }
+            },
+            "dependsOn": ["clean"]
         },
         {
             "label": "clean",
