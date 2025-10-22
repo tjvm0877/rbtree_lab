@@ -114,7 +114,6 @@ void test_minmax(key_t *arr, const size_t n)
 #ifdef SENTINEL
   assert(t->root != t->nil);
 #endif
-
   qsort((void *)arr, n, sizeof(key_t), comp);
   node_t *p = rbtree_min(t);
   assert(p != NULL);
@@ -418,7 +417,7 @@ int main(void)
   test_find_single(512, 1024);
   test_erase_root(128);
   test_find_erase_fixed();
-  // test_minmax_suite();
+  test_minmax_suite();
   // test_to_array_suite();
   // test_distinct_values();
   // test_duplicate_values();
